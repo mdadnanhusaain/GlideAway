@@ -1,0 +1,97 @@
+<!-- <%- // include("../includes/header.ejs") %> -->
+<% layout("/layouts/boilerplate.ejs") %>
+<html>
+  <title>Wanderlust : New Listing</title>
+  <body>
+    <h3>Edit your Listing</h3>
+    <hr class="hr" />
+    <br />
+    <div class="row">
+      <div class="col-8 offset-2">
+        <form action="/listings/<%=listing._id%>?_method=PUT" method="POST">
+          <div class="mb-3">
+            <label class="form-label" for="title">Title</label>
+            <input
+              id="title"
+              class="form-control"
+              type="text"
+              name="listing[title]"
+              placeholder="Enter title"
+              value="<%=listing.title%>"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea
+              id="description"
+              class="form-control"
+              type="text"
+              name="listing[description]"
+              placeholder="Enter description"
+            >
+<%=listing.description%>
+          </textarea
+            >
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="link">Image Link</label>
+            <input
+              id="link"
+              class="form-control"
+              type="text"
+              name="listing[image][url]"
+              placeholder="Enter image URL/LINK"
+              value="<%=listing.image.url%>"
+            />
+          </div>
+
+          <div class="row">
+            <div class="mb-3 col-md-4">
+              <label class="form-label" for="price">Price</label>
+              <input
+                id="price"
+                class="form-control"
+                type="number"
+                name="listing[price]"
+                placeholder="Enter price"
+                value="<%=listing.price%>"
+              />
+            </div>
+
+            <div class="mb-3 col-md-8">
+              <label class="form-label" for="country">Country</label>
+              <input
+                id="country"
+                class="form-control"
+                type="text"
+                name="listing[country]"
+                placeholder="Enter country"
+                value="<%=listing.country%>"
+              />
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="location">Location</label>
+            <input
+              id="location"
+              class="form-control"
+              type="text"
+              name="listing[location]"
+              placeholder="Enter location"
+              value="<%=listing.location%>"
+            />
+          </div>
+
+          <button class="btn btn-dark edit-btn">Edit</button>
+
+          <br />
+          <br />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+<!-- <%- // include("../includes/footer.ejs") %> -->
