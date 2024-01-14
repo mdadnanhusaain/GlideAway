@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+const mongoClient = require("mongodb").MongoClient;
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -19,17 +20,24 @@ app.use(methodOverride("_method"));
 
 app.engine("ejs", ejsMate);
 
-async function main() {
-  await mongoose.connect(`mongodb://127.0.0.1:27017/${database}`);
-}
+// async function main() {
+//   await mongoose.connect(`mongodb://127.0.0.1:27017/${database}`);
+// }
 
-main()
-  .then((res) => {
-    console.log("Successfully connected to Database");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// main()
+//   .then((res) => {
+//     console.log("Successfully connected to Database");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+mongoClient.connect(
+  "mongodb://mdadnanhusaain:rRcsbAn9RuzMQyyGBSQPqnW3Tc02mVj0a42Jmhm7SVAlySppbut9S45YXbcRCfjIfYSI33coWpY4ACDboeLJJg%3D%3D@mdadnanhusaain.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@mdadnanhusaain@",
+  function (err, client) {
+    client.close();
+  }
+);
 
 // Root Route
 app.get("/", (req, res) => {
