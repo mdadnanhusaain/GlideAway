@@ -7,7 +7,7 @@ const ejsMate = require("ejs-mate");
 
 const Listing = require("./models/listing.js");
 
-const port = 8080;
+const port = process.env.port || 8080;
 const database = "wanderlust";
 
 app.set("view engine", "ejs");
