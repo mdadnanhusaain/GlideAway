@@ -5,6 +5,7 @@
   <body>
     <div class="heading">
       <h3>All Listings</h3>
+      <hr class="hr" />
       <!-- <form method="GET" action="/listings/new">
         <button>Add Listing</button>
       </form> -->
@@ -17,27 +18,29 @@
     </ul> -->
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
       <% for(listing of listings ) { %>
-      <a href="/listings/<%=listing._id%>">
-        <div class="card col">
-          <img
-            src="<%=listing.image.url%>"
-            class="card-img-top"
-            alt="<%= listing.image.filename %>"
-            style="height: 20rem"
-          />
-          <div class="card-img-overlay"></div>
-          <div class="card-body">
-            <h5 class="card-title"><b><%=listing.title%></b></h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">
-              <i><%=listing.location%>, <%=listing.country%></i>
-            </h6>
-            <p class="card-text">
-              &#8377;<%=listing.price.toLocaleString("en-IN") %> / night
-              <br />
-            </p>
+      <div class="listing p-4">
+        <a href="/listings/<%=listing._id%>">
+          <div class="card col">
+            <img
+              src="<%=listing.image.url%>"
+              class="card-img-top mb-2"
+              alt="<%= listing.image.filename %>"
+              style="height: 20rem"
+            />
+            <div class="card-img-overlay"></div>
+            <div class="card-body m-1">
+              <h5 class="card-title"><b><%=listing.title%></b></h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">
+                <i><%=listing.location%>, <%=listing.country%></i>
+              </h6>
+              <p class="card-text">
+                &#8377;<%=listing.price.toLocaleString("en-IN") %> / night
+                <br />
+              </p>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
       <% } %>
     </div>
   </body>

@@ -1,8 +1,8 @@
 body {
   /* background-color: azure; */
   font-family: "Plus Jakarta Sans", sans-serif;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   min-height: 100vh;
 }
 
@@ -13,10 +13,17 @@ body {
 /* Navbar */
 
 .navbar {
-  height: 5rem;
+  padding: 1rem;
   background-color: #fff;
   box-shadow: 0 -0.4rem 1rem black;
   margin-bottom: 2rem;
+}
+
+.navbar-brand {
+  display: flex;
+  width: 10rem;
+  justify-content: space-between;
+  margin-right: 3rem;
 }
 
 .fa-compass {
@@ -24,14 +31,25 @@ body {
   font-size: 2rem;
 }
 
+.navbar-collapse {
+  transition: 0.4s ease-in;
+  background-color: #fff;
+}
+
 .nav-link {
   color: #222;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+.nav-link:hover {
+  background-color: #ffd2d5;
 }
 
 /* Cards */
 .row a {
   text-decoration: none;
 }
+
 .card {
   border: none;
   margin-bottom: 3rem;
@@ -56,6 +74,15 @@ body {
   padding: 0;
 }
 
+.card-text {
+  margin: 0;
+}
+
+.desc {
+  font-size: 0.9rem;
+  line-height: 1rem;
+  margin: 0 0 1rem 0.5rem;
+}
 
 /* Add Listing */
 .add-btn {
@@ -73,6 +100,7 @@ body {
 .edit-btn {
   background-color: #ff5b66;
   border: none;
+  min-width: 5rem;
 }
 
 .edit-btn:hover {
@@ -84,15 +112,18 @@ body {
 /* Show Listing */
 .show-img {
   height: 30vh;
-}
-
-.btns {
-  display: flex;
+  margin-bottom: 1rem;
 }
 
 .show-card {
   padding-left: 0;
   padding-right: 0;
+}
+
+.btns {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* Footer */

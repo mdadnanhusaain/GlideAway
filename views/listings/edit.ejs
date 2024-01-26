@@ -3,10 +3,12 @@
 <html>
   <title>Wanderlust : New Listing</title>
   <body>
-    <h3>Edit your Listing</h3>
-    <hr class="hr" />
-    <br />
-    <div class="row">
+    <div class="row mb-5">
+      <div class="col-8 offset-2">
+        <h3>Edit your Listing</h3>
+        <hr class="hr" />
+      </div>
+      <br />
       <div class="col-8 offset-2">
         <form action="/listings/<%=listing._id%>?_method=PUT" method="POST">
           <div class="mb-3">
