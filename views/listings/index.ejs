@@ -21,12 +21,14 @@
       <div class="listing p-4">
         <a href="/listings/<%=listing._id%>">
           <div class="card col">
-            <img
-              src="<%=listing.image.url%>"
-              class="card-img-top mb-2"
-              alt="<%= listing.image.filename %>"
-              style="height: 20rem"
-            />
+            <div class="card-img mb-2">
+              <img
+                src="<%=listing.image.url%>"
+                class="card-img-top"
+                alt="<%= listing.image.filename %>"
+                style="height: 20rem"
+              />
+            </div>
             <div class="card-img-overlay"></div>
             <div class="card-body m-1">
               <h5 class="card-title"><b><%=listing.title%></b></h5>
