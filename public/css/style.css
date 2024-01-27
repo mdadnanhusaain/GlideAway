@@ -29,6 +29,21 @@ body {
 .fa-compass {
   color: #fe424d;
   font-size: 2rem;
+  transition: 0.3s linear;
+  margin-right: 1rem;
+}
+
+.navbar-brand:hover > .fa-compass {
+  text-shadow: 0 0 3px #fe424d;
+}
+
+.brand-name {
+  transition: 0.3s linear;
+  font-size: 1.5rem;
+}
+
+.navbar-brand:hover > .brand-name {
+  font-weight: bold;
 }
 
 .navbar-collapse {
@@ -40,9 +55,13 @@ body {
   color: #222;
   padding: 0.5rem;
   border-radius: 5px;
+  transition: 0.3s linear;
+  margin: auto 0.5rem;
 }
+
 .nav-link:hover {
-  background-color: #ffd2d5;
+  background-color: #ff868e;
+  color: #fff;
 }
 
 /* Cards */
@@ -77,7 +96,7 @@ body {
 .card-img-overlay {
   opacity: 0.2;
   background-color: white;
-  height: 20rem;
+  /* height: 20rem; */
   transition: 0.3s ease-in-out;
 }
 
@@ -93,7 +112,7 @@ body {
 }
 
 .card:hover > .card-body {
-  text-shadow: 0 0 3px #aaa;
+  text-shadow: 0 0 3px silver;
   transition: 0.3s ease-in-out;
 }
 
@@ -159,6 +178,7 @@ body {
   align-items: space-evenly;
   height: 8rem;
   background-color: #ebebeb;
+  padding-bottom: 1rem;
 }
 
 .f-info-links,
@@ -173,13 +193,67 @@ body {
 .f-info-socials i {
   font-size: 1.2rem;
   margin: 0 0.5rem;
+  margin-top: 0.25rem;
+  transition: 0.3s linear;
+  cursor: pointer;
+}
+
+.f-info-socials i:hover {
+  font-size: 2rem;
+  transition: 0.3s linear;
+}
+
+.fa-brands {
+  transition: 0.3s linear;
+}
+
+.fa-square-facebook:hover {
+  color: #106bff;
+}
+
+.fa-square-instagram:hover {
+  color: transparent;
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  background: -webkit-radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.fa-linkedin:hover {
+  color: #087bb9;
+}
+
+.f-info-brand {
+  color: #fe424d;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+
+.f-info-brand:hover {
+  font-weight: bolder;
 }
 
 .f-info-links a {
   text-decoration: none;
   color: #222;
+  margin: auto 0.5rem;
 }
 
 .f-info-links a:hover {
   text-decoration: underline;
+  color: #ff0b1b;
 }
