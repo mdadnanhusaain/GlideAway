@@ -8,7 +8,12 @@
         <h3>Add New Listing to Wanderlust</h3>
         <hr class="hr" />
 
-        <form action="/listings" method="POST">
+        <form
+          action="/listings"
+          method="POST"
+          class="needs-validation"
+          novalidate
+        >
           <div class="mb-3">
             <label class="form-label" for="title">Title</label>
             <input
@@ -17,9 +22,12 @@
               type="text"
               name="listing[title]"
               placeholder="Enter title"
+              autocomplete="off"
+              required
             />
+            <div class="valid-feedback">Title looks good!</div>
+            <div class="invalid-feedback">Title cannot be empty!</div>
           </div>
-
           <div class="mb-3">
             <label class="form-label" for="description">Description</label>
             <textarea
@@ -28,9 +36,11 @@
               type="text"
               name="listing[description]"
               placeholder="Enter description"
+              autocomplete="off"
+              required
             ></textarea>
+            <div class="invalid-feedback">Please enter a short description</div>
           </div>
-
           <div class="mb-3">
             <label class="form-label" for="link">Image Link</label>
             <input
@@ -39,21 +49,23 @@
               type="text"
               name="listing[image][url]"
               placeholder="Enter image URL/LINK"
+              autocomplete="off"
             />
           </div>
-
           <div class="row">
             <div class="mb-3 col-md-4">
               <label class="form-label" for="price">Price</label>
               <input
                 id="price"
                 class="form-control"
-                type="number"
+                type="text"
                 name="listing[price]"
                 placeholder="Enter price"
+                autocomplete="off"
+                required
               />
+              <div class="invalid-feedback">Price should be Valid!</div>
             </div>
-
             <div class="mb-3 col-md-8">
               <label class="form-label" for="country">Country</label>
               <input
@@ -62,10 +74,12 @@
                 type="text"
                 name="listing[country]"
                 placeholder="Enter country"
+                autocomplete="off"
+                required
               />
+              <div class="invalid-feedback">Country name should be valid</div>
             </div>
           </div>
-
           <div class="mb-3">
             <label class="form-label" for="location">Location</label>
             <input
@@ -74,10 +88,13 @@
               type="text"
               name="listing[location]"
               placeholder="Enter location"
+              autocomplete="off"
+              required
             />
+            <div class="invalid-feedback">Location should be valid</div>
           </div>
           <br />
-          <button class="btn btn-dark add-btn">Add</button>
+          <button class="btn btn-primary add-btn">Add</button>
           <br />
           <br />
         </form>

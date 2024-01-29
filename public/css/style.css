@@ -1,8 +1,8 @@
 body {
   /* background-color: azure; */
   font-family: "Plus Jakarta Sans", sans-serif;
-  /* display: flex;
-  flex-direction: column; */
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
@@ -64,6 +64,12 @@ body {
   color: #fff;
 }
 
+.nav-link:active {
+  background-color: #ff1a29;
+  transition: none;
+  border: 1px solid #cb000e;
+}
+
 /* Cards */
 .row a {
   text-decoration: none;
@@ -117,7 +123,7 @@ body {
 }
 
 .card-text {
-  margin: 0;
+  margin: 0 0 1rem 0;
 }
 
 .desc {
@@ -130,9 +136,11 @@ body {
 .add-btn {
   background-color: #fe424d;
   border: none;
+  transition: 0.2s ease-in;
 }
 
-.add-btn:hover {
+.add-btn:hover,
+.edit-btn:hover {
   background-color: #ff1a29;
   box-shadow: 0 0 0.5rem #ff1121;
   font-weight: 800;
@@ -143,12 +151,17 @@ body {
   background-color: #ff5b66;
   border: none;
   min-width: 5rem;
+  transition: 0.2s ease-in;
 }
 
-.edit-btn:hover {
-  background-color: #fe3341;
-  box-shadow: 0 0 0.5rem #ff1121;
-  font-weight: 800;
+.btn-dark {
+  transition: 0.2s ease-in;
+  background-color: #333;
+}
+
+.btn-dark:hover {
+  background-color: #000;
+  box-shadow: 0 0 0.5rem #333;
 }
 
 /* Show Listing */
@@ -170,15 +183,19 @@ body {
 }
 
 /* Footer */
+footer {
+  margin-top: auto;
+}
+
 .f-info {
-  text-align: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: space-evenly;
   height: 8rem;
   background-color: #ebebeb;
   padding-bottom: 1rem;
+  text-align: center;
+  justify-content: center;
+  align-items: space-evenly;
 }
 
 .f-info-links,
@@ -191,15 +208,15 @@ body {
 }
 
 .f-info-socials i {
-  font-size: 1.2rem;
-  margin: 0 0.5rem;
-  margin-top: 0.25rem;
+  font-size: 1.6rem;
+  padding: 0.15rem 0.65rem;
+  margin: 0.5rem 0;
   transition: 0.3s linear;
   cursor: pointer;
 }
 
 .f-info-socials i:hover {
-  font-size: 2rem;
+  scale: 1.4;
   transition: 0.3s linear;
 }
 
@@ -244,16 +261,20 @@ body {
 }
 
 .f-info-brand:hover {
+  font-size: 1.1rem;
   font-weight: bolder;
+  text-shadow: 0 0 1px #ff0b1b;
 }
 
 .f-info-links a {
   text-decoration: none;
   color: #222;
   margin: auto 0.5rem;
+  transition: 0.3s linear;
 }
 
 .f-info-links a:hover {
+  text-shadow: 0 0 1px #ff0b1b;
   text-decoration: underline;
   color: #ff0b1b;
 }

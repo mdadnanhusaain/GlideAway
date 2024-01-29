@@ -10,7 +10,12 @@
       </div>
       <br />
       <div class="col-8 offset-2">
-        <form action="/listings/<%=listing._id%>?_method=PUT" method="POST">
+        <form
+          action="/listings/<%=listing._id%>?_method=PUT"
+          method="POST"
+          class="needs-validation"
+          novalidate
+        >
           <div class="mb-3">
             <label class="form-label" for="title">Title</label>
             <input
@@ -20,7 +25,10 @@
               name="listing[title]"
               placeholder="Enter title"
               value="<%=listing.title%>"
+              required
             />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Title cannot be Empty</div>
           </div>
 
           <div class="mb-3">
@@ -31,10 +39,13 @@
               type="text"
               name="listing[description]"
               placeholder="Enter description"
+              required
             >
 <%=listing.description%>
           </textarea
             >
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Description cannot be Empty</div>
           </div>
 
           <div class="mb-3">
@@ -46,7 +57,12 @@
               name="listing[image][url]"
               placeholder="Enter image URL/LINK"
               value="<%=listing.image.url%>"
+              required
             />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+              Please enter a valid link for Image
+            </div>
           </div>
 
           <div class="row">
@@ -59,7 +75,10 @@
                 name="listing[price]"
                 placeholder="Enter price"
                 value="<%=listing.price%>"
+                required
               />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Invalid Price Value</div>
             </div>
 
             <div class="mb-3 col-md-8">
@@ -71,7 +90,10 @@
                 name="listing[country]"
                 placeholder="Enter country"
                 value="<%=listing.country%>"
+                required
               />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Country name cannot be Empty</div>
             </div>
           </div>
 
@@ -84,7 +106,10 @@
               name="listing[location]"
               placeholder="Enter location"
               value="<%=listing.location%>"
+              required
             />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Location cannot be Empty</div>
           </div>
 
           <button class="btn btn-dark edit-btn">Edit</button>

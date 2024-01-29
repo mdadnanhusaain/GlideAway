@@ -16,22 +16,28 @@
           alt="<%=listing.image.filename%>"
         />
         <div class="card-body">
-          <p class="card-text"><b><%=listing.title%></b><br /></p>
-          <div class="desc"><i><%=listing.description%></i><br /></div>
+          <p class="card-text"><b><%=listing.title%></b></p>
+          <div class="desc"><i><%=listing.description%></i></div>
           <p class="card-text">
-            <%=listing.location%> <br />
-            <%=listing.country%><br /><br />
-            <b> &#8377;<%=listing.price.toLocaleString("en-IN") %></b
-            >&nbsp;/night<br />
+            <%=listing.location%> <% if(listing.location !== "" &&
+            listing.country !== "") {%>
+            <br />
+            <%}%> <%=listing.country%> <%if(listing.location !== "" ||
+            listing.country !== ""){%>
+            <br />
+            <br /><% } if(listing.price) {%>
+            <b> &#8377;<%=listing.price.toLocaleString("en-IN") %> </b>
+            &nbsp;/night <% } %>
+            <br />
           </p>
         </div>
       </div>
 
       <br />
-      <div class="btns">
+      <div class="btns position-xs-static">
         <a
           href="/listings/<%=listing._id%>/edit"
-          class="btn btn-dark col-1 offset-3 edit-btn"
+          class="btn btn-primary offset-3 edit-btn"
           >Edit</a
         >
 
