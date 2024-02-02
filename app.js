@@ -8,9 +8,10 @@ const ejsMate = require("ejs-mate");
 
 // Requiring custom js objects
 const Listing = require("./models/listing.js");
+const Review = require("./models/review.js");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const { listingSchema } = require("./schema.js");
+const { listingSchema, reviewSchema } = require("./schema.js");
 
 // Declaring global variables
 const port = 8080;
@@ -37,11 +38,9 @@ main()
     console.log(err);
   });
 
-// Root Route
-app.get("/", (req, res) => {
-  res.send("Hi, I am root");
-});
+// VALIDATION
 
+// 1. Listing
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
   if (error) {
@@ -51,8 +50,27 @@ const validateListing = (req, res, next) => {
     next();
   }
 };
+// 2. Review
+const validateReview = (req, res, next) => {
+  let { error } = reviewSchema.validate(req.body);
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(", ");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};
 
-// Index Route
+// ROUTES
+
+// Root Route
+app.get("/", (req, res) => {
+  res.send("Hi, I am root");
+});
+
+// 1. Listing
+
+// 1.1. Index Route
 app.get(
   "/listings",
   wrapAsync(async (req, res) => {
@@ -61,22 +79,22 @@ app.get(
   })
 );
 
-// New Route
+// 1.2. New Route
 app.get("/listings/new", (req, res) => {
   res.render("listings/new.ejs");
 });
 
-// Show Route
+// 1.3. Show Route
 app.get(
   "/listings/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs", { listing });
   })
 );
 
-// Create Route
+// 1.4. Create Route
 app.post(
   "/listings",
   validateListing,
@@ -88,7 +106,7 @@ app.post(
   })
 );
 
-// Edit Route
+// 1.5. Edit Route
 app.get(
   "/listings/:id/edit",
   wrapAsync(async (req, res) => {
@@ -98,7 +116,7 @@ app.get(
   })
 );
 
-// Update Route
+// 1.6. Update Route
 app.put(
   "/listings/:id",
   validateListing,
@@ -110,7 +128,7 @@ app.put(
   })
 );
 
-// Delete Route
+// 1.7. Delete Route
 app.delete(
   "/listings/:id",
   wrapAsync(async (req, res) => {
@@ -118,6 +136,43 @@ app.delete(
     let deletedListing = await Listing.findByIdAndDelete(id);
     console.log(`Listing Deleted from Database\n\n${deletedListing}`);
     res.redirect("/listings");
+  })
+);
+
+// 2. Reviews
+
+// 2.1. Create Route
+app.post(
+  "/listings/:id/reviews",
+  validateReview,
+  wrapAsync(async (req, res, next) => {
+    let { id } = req.params;
+    let listing = await Listing.findById(id);
+    let newReview = new Review(req.body.review);
+
+    listing.reviews.push(newReview);
+
+    await newReview.save();
+    await listing.save();
+
+    console.log("new review saved");
+
+    res.redirect(`/listings/${id}`);
+  })
+);
+// 2.2 Delete Route
+app.delete(
+  "/listings/:id/reviews/:reviewId",
+  wrapAsync(async (req, res, next) => {
+    let { id, reviewId } = req.params;
+
+    let listing = await Listing.findByIdAndUpdate(id, {
+      $pull: { reviews: reviewId },
+    });
+    let review = await Review.findByIdAndDelete(reviewId);
+
+    console.log(`Review Deleted \n${review}\n\nListing Updated : ${listing}`);
+    res.redirect(`/listings/${id}`);
   })
 );
 

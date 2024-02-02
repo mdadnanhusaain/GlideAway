@@ -75,7 +75,7 @@ body {
   text-decoration: none;
 }
 
-.card {
+.listing-card {
   border: none;
   margin-bottom: 3rem;
 }
@@ -94,7 +94,7 @@ body {
   transition: 0.3s ease-in-out;
 }
 
-.card:hover > .card-img .card-img-top {
+.listing-card:hover > .card-img .card-img-top {
   scale: 1;
   transition: 0.3s ease-in-out;
 }
@@ -106,7 +106,7 @@ body {
   transition: 0.3s ease-in-out;
 }
 
-.card:hover > .card-img-overlay,
+.listing-card:hover > .card-img-overlay,
 .card-img-overlay:hover {
   opacity: 0;
   transition: 0.3s ease-in-out;
@@ -117,13 +117,9 @@ body {
   transition: 0.3s ease-in-out;
 }
 
-.card:hover > .card-body {
+.listing-card:hover > .card-body {
   text-shadow: 0 0 3px silver;
   transition: 0.3s ease-in-out;
-}
-
-.card-text {
-  margin: 0 0 1rem 0;
 }
 
 .desc {

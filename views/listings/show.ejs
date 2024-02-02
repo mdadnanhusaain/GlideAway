@@ -4,19 +4,18 @@
   <title>Wanderlust : <%=listing.title%></title>
   <body>
     <div class="row mb-5">
-      <div class="col-8 offset-3">
-        <h3>Listing Details</h3>
-        <hr class="hr col-9 mb-4" />
+      <div class="col-9 offset-3">
+        <h3 class="col-8"><%=listing.title%></h3>
+        <hr class="hr col-8 mb-4" />
       </div>
       <br />
-      <div class="card col-6 offset-3 show-card">
+      <div class="card col-6 offset-3 show-card listing-card">
         <img
           src="<%=listing.image.url%>"
           class="card-img-top show-img"
           alt="<%=listing.image.filename%>"
         />
         <div class="card-body">
-          <p class="card-text"><b><%=listing.title%></b></p>
           <div class="desc"><i><%=listing.description%></i></div>
           <p class="card-text">
             <%=listing.location%> <% if(listing.location !== "" &&
@@ -44,6 +43,69 @@
         <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
           <button class="btn btn-dark offset-5">Delete</button>
         </form>
+      </div>
+
+      <div class="col-8 offset-3 mb-3 mt-4">
+        <div class="col-9 mb-4">
+          <hr class="hr mb-5" />
+
+          <h4>Leave a Review</h4>
+        </div>
+        <form
+          action="/listings/<%=listing._id%>/reviews"
+          method="POST"
+          class="needs-validation"
+          novalidate
+        >
+          <div class="mb-3 col-9">
+            <label for="rating" class="form-label">Rating</label>
+            <input
+              type="range"
+              min="1"
+              max="5"
+              id="rating"
+              name="review[rating]"
+              class="form-range"
+            />
+          </div>
+          <div class="mb-3 col-9">
+            <label for="comment" class="form-label">Comments</label>
+            <textarea
+              name="review[comment]"
+              id="comment"
+              cols="30"
+              rows="5"
+              class="form-control"
+              required
+            ></textarea>
+            <div class="invalid-feedback">
+              Please add some comment for review
+            </div>
+          </div>
+          <button class="btn btn-outline-warning">Submit</button>
+        </form>
+
+        <hr class="hr mb-4 mt-5" />
+
+        <p><b> All Reviews </b></p>
+        <div class="row">
+          <% for(review of listing.reviews) {%>
+          <div class="card col-5 ms-3 mb-3">
+            <div class="card-body mt-3">
+              <h5 class="card-title">Md Adnan Hussain</h5>
+              <p class="card-text"><%= review.comment %></p>
+              <p class="card-text"><%= review.rating %> stars</p>
+              <form
+                action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE"
+                class="mb-3"
+                method="POST"
+              >
+                <button class="btn btn-sm btn-dark">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% } %>
+        </div>
       </div>
     </div>
   </body>
