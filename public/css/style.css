@@ -112,12 +112,13 @@ body {
   transition: 0.3s ease-in-out;
 }
 
-.card-body {
+.card-body,
+.listing-body {
   padding: 0;
   transition: 0.3s ease-in-out;
 }
 
-.listing-card:hover > .card-body {
+.listing-card:hover > .listing-body {
   text-shadow: 0 0 3px silver;
   transition: 0.3s ease-in-out;
 }
