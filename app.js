@@ -7,11 +7,15 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 
 // Custom Objects
 const ExpressError = require("./utils/ExpressError.js");
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const listingRouter = require("./routes/listing.js");
+const reviewRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js");
+const User = require("./models/user.js");
 
 // Global variables
 const port = 8080;
@@ -28,17 +32,7 @@ const sessionOptions = {
   },
 };
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
-app.use(session(sessionOptions));
-app.use(flash());
-
-app.engine("ejs", ejsMate);
-
+// MongoDB Connection
 async function main() {
   await mongoose.connect(MONGO_URL);
 }
@@ -50,6 +44,22 @@ main()
   .catch((err) => {
     console.log(err);
   });
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.use(session(sessionOptions));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.engine("ejs", ejsMate);
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // MIDDLEWARES
 
@@ -71,11 +81,13 @@ app.get("/", (req, res) => {
 });
 
 // 2. Listing
-
-app.use("/listings", listings);
+app.use("/listings", listingRouter);
 
 // 3. Reviews
-app.use("/listings/:id/reviews", reviews);
+app.use("/listings/:id/reviews", reviewRouter);
+
+// 4. User
+app.use("/", userRouter);
 
 // 404 Error handler
 app.all("*", (req, res, next) => {
