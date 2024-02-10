@@ -70,6 +70,7 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   res.locals.update = req.flash("update");
   res.locals.deleted = req.flash("deleted");
+  res.locals.currUser = req.user;
   next();
 });
 
@@ -86,6 +87,11 @@ app.use("/listings", listingRouter);
 // 3. Reviews
 app.use("/listings/:id/reviews", reviewRouter);
 
+app.get("/test", (req, res) => {
+  // console.log(req);
+  let url = `${req.protocol}://${req.get("host")}${req.session.redirectUrl}`;
+  res.send(url);
+});
 // 4. User
 app.use("/", userRouter);
 
@@ -101,5 +107,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is listening to http://localhost:${port}`);
+  console.log(`Server is listening to http://localhost:${port}/listings`);
 });

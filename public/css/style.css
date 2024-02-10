@@ -60,12 +60,12 @@ body {
 }
 
 .nav-link:hover {
-  background-color: #ff868e;
+  background-color: #f65c66;
   color: #fff;
 }
 
 .nav-link:active {
-  background-color: #ff1a29;
+  background-color: #ff2433;
   transition: none;
   border: 1px solid #cb000e;
 }
@@ -77,7 +77,7 @@ body {
 
 .listing-card {
   border: none;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
 }
 .card-img {
   /* height: 20rem; */
@@ -100,7 +100,7 @@ body {
 }
 
 .card-img-overlay {
-  opacity: 0.2;
+  opacity: 0.14;
   background-color: white;
   /* height: 20rem; */
   transition: 0.3s ease-in-out;
@@ -124,9 +124,9 @@ body {
 }
 
 .desc {
-  font-size: 0.9rem;
-  line-height: 1rem;
-  margin: 0 0 1rem 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1.3rem;
+  margin: 0 0 1rem 0;
 }
 
 /* Add Listing */
@@ -141,6 +141,13 @@ body {
   background-color: #ff1a29;
   box-shadow: 0 0 0.5rem #ff1121;
   font-weight: 800;
+}
+
+.add-btn:active,
+.edit-btn:active {
+  transition: none;
+  background-color: #fb0d1d !important;
+  box-shadow: 0 0 1rem #ff0718;
 }
 
 /* Edit Listing */
@@ -164,7 +171,6 @@ body {
 /* Show Listing */
 .show-img {
   height: 30vh;
-  margin-bottom: 1rem;
   scale: 1;
 }
 

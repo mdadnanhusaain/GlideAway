@@ -4,32 +4,25 @@ const router = express.Router({ mergeParams: true });
 
 // Custom Objects
 const wrapAsync = require("../utils/wrapAsync.js");
-const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 const Review = require("../models/review.js");
-const { reviewSchema } = require("../authentication/schema.js");
-
-// Validation
-const validateReview = (req, res, next) => {
-  let { error } = reviewSchema.validate(req.body);
-  if (error) {
-    let errMsg = error.details.map((el) => el.message).join(", ");
-    throw new ExpressError(400, errMsg);
-  } else {
-    next();
-  }
-};
+const {
+  validateReview,
+  isLoggedIn,
+  isReviewAuthor,
+} = require("../middleware/middlewares.js");
 
 // 1. Create Route
 router.post(
   "/",
   validateReview,
-  wrapAsync(async (req, res, next) => {
+  isLoggedIn,
+  wrapAsync(async (req, res) => {
     let { id } = req.params;
     console.log(id);
     let listing = await Listing.findById(id);
     let newReview = new Review(req.body.review);
-
+    newReview.author = req.user._id;
     listing.reviews.push(newReview);
 
     await newReview.save();
@@ -44,6 +37,8 @@ router.post(
 // 2 Delete Route
 router.delete(
   "/:reviewId",
+  isLoggedIn,
+  isReviewAuthor,
   wrapAsync(async (req, res, next) => {
     let { id, reviewId } = req.params;
 
