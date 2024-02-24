@@ -14,14 +14,14 @@ const ListingSchema = new Schema({
     type: String,
   },
   image: {
-    filename: {
-      type: String,
-      default: "listingimage",
-    },
     url: {
       type: String,
       default: defaultLink,
       set: (v) => (v === "" ? defaultLink : v),
+    },
+    filename: {
+      type: String,
+      default: "listingimage",
     },
   },
   price: {
@@ -43,12 +43,23 @@ const ListingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  geometry: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true,
+    },
+    coordinates: {
+      type: [Number],
+      required: true,
+    },
+  },
 });
 
 ListingSchema.post("findOneAndDelete", async (listing) => {
   if (listing) {
     let result = await Review.deleteMany({ _id: { $in: listing.reviews } });
-    console.log(result);
+    console.log(`Listing ${listing} deleted\nReviews Deleted:-  ${result}`);
   }
 });
 

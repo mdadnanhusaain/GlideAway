@@ -99,15 +99,15 @@ body {
   transition: 0.3s ease-in-out;
 }
 
-.card-img-overlay {
+.overlay {
   opacity: 0.14;
   background-color: white;
   /* height: 20rem; */
   transition: 0.3s ease-in-out;
 }
 
-.listing-card:hover > .card-img-overlay,
-.card-img-overlay:hover {
+.listing-card:hover > .overlay,
+.overlay:hover {
   opacity: 0;
   transition: 0.3s ease-in-out;
 }
@@ -168,21 +168,26 @@ body {
   box-shadow: 0 0 0.5rem #333;
 }
 
+.previewImage {
+  border-radius: 1rem;
+  box-shadow: 0 0 0.2rem black;
+}
+
 /* Show Listing */
 .show-img {
   height: 30vh;
   scale: 1;
 }
 
-.show-card {
-  /* padding-left: 0; */
-  padding-right: 0;
-}
-
 .btns {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+}
+
+#map {
+  height: 40vh;
+  width: 100%;
 }
 
 /* Footer */

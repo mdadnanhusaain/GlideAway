@@ -5,7 +5,7 @@ const { listingSchema, reviewSchema } = require("../authentication/schema.js");
 
 // Login Validation
 module.exports.isLoggedIn = (req, res, next) => {
-  console.log(req.user);
+  console.log(`Current User :- ${req.user}`);
   if (!req.isAuthenticated()) {
     req.session.redirectUrl = req.originalUrl;
     req.flash("error", "You must be logged in to create listing!");
@@ -18,7 +18,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 module.exports.saveRedirectUrl = async (req, res, next) => {
   try {
     if (!req.session.redirectUrl) {
-      console.log(req.session.redirectUrl);
+      console.log(`Invalid Redirect URL:- ${req.session.redirectUrl}`);
       throw new Error();
     }
     let url = `${req.protocol}://${req.get("host")}${req.session.redirectUrl}`;

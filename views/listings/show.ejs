@@ -1,20 +1,26 @@
-<!-- <%- // include("../includes/header.ejs") %> -->
 <% layout("/layouts/boilerplate.ejs") %>
+
+<script>
+  const mapToken = "<%= process.env.MAP_TOKEN %>";
+  const listing = JSON.parse(`<%- JSON.stringify(listing) %>`);
+  console.log(listing);
+</script>
 
 <title>Wanderlust : <%=listing.title%></title>
 
 <div class="row mb-5">
-  <div class="col-9 offset-3">
-    <h3 class="col-8"><%=listing.title%></h3>
-    <hr class="hr col-8 mb-4" />
+  <div class="col-md-9 offset-md-3">
+    <h3 class="col-md-8"><%=listing.title%></h3>
+    <hr class="hr col-md-8 mb-4" />
   </div>
   <br />
-  <div class="card col-6 offset-3 show-card listing-card">
+  <div class="card col-md-6 offset-md-3 show-card listing-card">
     <img
       src="<%=listing.image.url%>"
       class="card-img-top show-img"
       alt="<%=listing.image.filename%>"
     />
+    <div class="card-img-overlay"></div>
     <div class="card-body">
       <p class="card-text">
         Owned by -
@@ -43,9 +49,9 @@
   </div>
   <% } %>
 
-  <div class="col-8 offset-3 mb-3 mt-1">
+  <div class="col-md-8 offset-md-3 mb-3 mt-1">
     <!-- Review Form -->
-    <div class="col-9 mb-4">
+    <div class="col-md-9 mb-4">
       <hr class="hr mb-4" />
       <h4>Leave a Review</h4>
     </div>
@@ -57,18 +63,56 @@
       class="needs-validation"
       novalidate
     >
-      <div class="mb-3 col-9">
+      <div class="mb-3 col-md-9">
         <label for="rating" class="form-label">Rating</label>
-        <input
-          type="range"
-          min="1"
-          max="5"
-          id="rating"
-          name="review[rating]"
-          class="form-range"
-        />
+        <fieldset class="starability-slot">
+          <input
+            type="radio"
+            id="rating"
+            class="input-no-rate"
+            name="review[rating]"
+            value="1"
+            checked
+            aria-label="No rating."
+          />
+          <input
+            type="radio"
+            id="first-rate1"
+            name="review[rating]"
+            value="1"
+          />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input
+            type="radio"
+            id="first-rate2"
+            name="review[rating]"
+            value="2"
+          />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input
+            type="radio"
+            id="first-rate3"
+            name="review[rating]"
+            value="3"
+          />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input
+            type="radio"
+            id="first-rate4"
+            name="review[rating]"
+            value="4"
+          />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input
+            type="radio"
+            id="first-rate5"
+            name="review[rating]"
+            value="5"
+          />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
       </div>
-      <div class="mb-3 col-9">
+      <div class="mb-3 col-md-9">
         <label for="comment" class="form-label">Comments</label>
         <textarea
           name="review[comment]"
@@ -89,15 +133,20 @@
     <!-- Reviews -->
 
     <% if(listing.reviews.length) { %>
-    <hr class="hr col-9 mb-4 mt-4" />
+    <hr class="hr col-md-9 mb-4 mt-4" />
     <p><b> All Reviews </b></p>
-    <div class="row col-10">
+    <div class="row col-md-10">
       <% for(review of listing.reviews) {%>
       <div class="card col-5 ms-4 mb-3">
         <div class="card-body mt-3">
           <h5 class="card-title">@<%= review.author.username %></h5>
           <p class="card-text"><%= review.comment %></p>
-          <p class="card-text"><%= review.rating %> stars</p>
+          <p
+            class="starability-result card-text"
+            data-rating="<%=review.rating%>"
+          >
+            Rated: 3 stars
+          </p>
           <form
             action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE"
             class="mb-3"
@@ -114,7 +163,17 @@
       <% } %>
     </div>
     <% } %>
+
+    <!-- Map -->
+
+    <div class="col-md-9 mb-4">
+      <hr class="hr mb-4" />
+      <h4>Where you'll be</h4>
+    </div>
+    <div class="map col-md-9">
+      <div id="map"></div>
+    </div>
   </div>
 </div>
 
-<!-- <%- // include("../includes/header.ejs") %> -->
+<script src="/js/map.js "></script>

@@ -1,4 +1,3 @@
-<!-- <%- // include("../includes/header.ejs") %> -->
 <% layout("/layouts/boilerplate.ejs") %>
 <title>Wanderlust : New Listing</title>
 <div class="row">
@@ -6,7 +5,13 @@
     <h3>Add New Listing to Wanderlust</h3>
     <hr class="hr" />
 
-    <form action="/listings" method="POST" class="needs-validation" novalidate>
+    <form
+      action="/listings"
+      method="POST"
+      class="needs-validation"
+      novalidate
+      enctype="multipart/form-data"
+    >
       <div class="mb-3">
         <label class="form-label" for="title">Title</label>
         <input
@@ -35,14 +40,13 @@
         <div class="invalid-feedback">Please enter a short description</div>
       </div>
       <div class="mb-3">
-        <label class="form-label" for="link">Image Link</label>
+        <label class="form-label" for="image">Upload Listing Image</label>
         <input
-          id="link"
+          name="listing[image]"
+          id="image"
           class="form-control"
-          type="text"
-          name="listing[image][url]"
-          placeholder="Enter image URL/LINK"
-          autocomplete="off"
+          type="file"
+          required
         />
       </div>
       <div class="row">
@@ -93,5 +97,3 @@
     </form>
   </div>
 </div>
-
-<!-- <%- // include("../includes/footer.ejs") %> -->

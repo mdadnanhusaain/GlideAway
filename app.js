@@ -1,3 +1,8 @@
+// Environment Variable
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+}
+
 // Package
 const express = require("express");
 const app = express();
@@ -18,9 +23,6 @@ const userRouter = require("./routes/user.js");
 const User = require("./models/user.js");
 
 // Global variables
-const port = 8080;
-const database = "wanderlust";
-const MONGO_URL = `mongodb://127.0.0.1:27017/${database}`;
 const sessionOptions = {
   secret: "mdadnanhusaain",
   resave: false,
@@ -34,12 +36,12 @@ const sessionOptions = {
 
 // MongoDB Connection
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(`${process.env.MONGO_URL}/${process.env.DATABASE}`);
 }
 
 main()
   .then((res) => {
-    console.log("Successfully connected to Database");
+    console.log("Successfully connected to Database\n");
   })
   .catch((err) => {
     console.log(err);
@@ -66,7 +68,6 @@ passport.deserializeUser(User.deserializeUser());
 // Flash Message
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
-  // console.log(res.locals.success);
   res.locals.error = req.flash("error");
   res.locals.update = req.flash("update");
   res.locals.deleted = req.flash("deleted");
@@ -88,7 +89,6 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 
 app.get("/test", (req, res) => {
-  // console.log(req);
   let url = `${req.protocol}://${req.get("host")}${req.session.redirectUrl}`;
   res.send(url);
 });
@@ -102,10 +102,13 @@ app.all("*", (req, res, next) => {
 
 // Error handling Middleware
 app.use((err, req, res, next) => {
+  console.log(err);
   let { statusCode = 500, message = "Something went wrong" } = err;
   res.status(statusCode).render("error.ejs", { message });
 });
 
-app.listen(port, () => {
-  console.log(`Server is listening to http://localhost:${port}/listings`);
+app.listen(process.env.PORT, () => {
+  console.log(
+    `Server is listening to http://localhost:${process.env.PORT}/listings \n`
+  );
 });
