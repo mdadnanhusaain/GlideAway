@@ -99,6 +99,67 @@ body {
   border: 1px solid #cb000e;
 }
 
+/* Filter bar */
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#filters {
+  display: flex;
+  width: 80%;
+  overflow: hidden;
+}
+
+.filter {
+  text-align: center;
+  margin: 0.2rem 1rem;
+  opacity: 0.5;
+}
+
+.filter:hover {
+  opacity: 1;
+  cursor: pointer;
+  transition: 0.2s linear;
+}
+
+.filter:hover > .underline {
+  opacity: 0.5;
+  transition: 0.2s linear;
+}
+
+.filter span {
+  font-size: 0.8rem;
+}
+
+.underline {
+  width: 95%;
+  margin: 0.5rem auto;
+  height: 0.1rem;
+  background-color: black;
+  opacity: 0;
+}
+
+.tax-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 1px solid black;
+  border-radius: 1rem;
+  min-height: 2.5rem;
+  max-height: 4.5rem;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.tax-toggle label {
+  text-align: center;
+}
+
+.tax-info {
+  display: none;
+}
+
 /* Cards */
 .row a {
   text-decoration: none;

@@ -3,7 +3,6 @@
 <script>
   const mapToken = "<%= process.env.MAP_TOKEN %>";
   const listing = JSON.parse(`<%- JSON.stringify(listing) %>`);
-  console.log(listing);
 </script>
 
 <title><%= appName %> : <%=listing.title%></title>
@@ -176,4 +175,4 @@
   </div>
 </div>
 
-<script src="/js/map.js "></script>
+<script src="/js/map.js"></script>
