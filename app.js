@@ -11,6 +11,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -23,8 +24,21 @@ const userRouter = require("./routes/user.js");
 const User = require("./models/user.js");
 
 // Global variables
+const mongodbStore = MongoStore.create({
+  mongoUrl: process.env.ATLAS_URL,
+  crypto: {
+    secret: process.env.SESSION_SECRET,
+  },
+  touchAfter: 24 * 60 * 60,
+});
+
+mongodbStore.on("error", () => {
+  console.log("ERROR in MONGO SESSION STORE", err);
+});
+
 const sessionOptions = {
-  secret: "mdadnanhusaain",
+  store: mongodbStore,
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -36,7 +50,7 @@ const sessionOptions = {
 
 // MongoDB Connection
 async function main() {
-  await mongoose.connect(`${process.env.MONGO_URL}/${process.env.DATABASE}`);
+  await mongoose.connect(process.env.ATLAS_URL);
 }
 
 main()

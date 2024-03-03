@@ -321,10 +321,6 @@ footer {
   transition: 0.3s linear;
 }
 
-.fa-square-facebook:hover {
-  color: #106bff;
-}
-
 .fa-square-instagram:hover {
   color: transparent;
   background: radial-gradient(
@@ -347,6 +343,14 @@ footer {
   -webkit-background-clip: text;
 }
 
+.fa-square-github:hover {
+  color: #080808;
+}
+
+.fa-square-x-twitter:hover {
+  color: #080808;
+}
+
 .fa-linkedin:hover {
   color: #087bb9;
 }
@@ -363,11 +367,15 @@ footer {
   text-shadow: 0 0 1px #ff0b1b;
 }
 
-.f-info-links a {
+.f-info-links a,
+.f-info-socials a {
   text-decoration: none;
   color: #222;
-  margin: auto 0.5rem;
   transition: 0.3s linear;
+}
+
+.f-info-links a {
+  margin: auto 0.5rem;
 }
 
 .f-info-links a:hover {
