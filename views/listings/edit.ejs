@@ -53,13 +53,13 @@
         <img src="<%=originalImageUrl%>" alt="" class="previewImage w-50" />
       </div>
 
-      <div class="mb-3">
+      <div id="dropArea" class="mb-3">
         <label class="form-label" for="image">Upload New Image</label>
         <input
+          name="listing[image]"
           id="image"
           class="form-control"
           type="file"
-          name="listing[image]"
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
@@ -118,3 +118,5 @@
     </form>
   </div>
 </div>
+
+<script src="/js/dragAndDrop.js"></script>
