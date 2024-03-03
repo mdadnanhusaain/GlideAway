@@ -81,14 +81,25 @@ module.exports.updateListing = async (req, res) => {
   let listing = req.body.listing;
   let newListing = await Listing.findByIdAndUpdate(id, { ...listing });
 
+  let response = await geocodingClient
+    .forwardGeocode({
+      query: `${req.body.listing.location}, ${req.body.listing.country}`,
+      limit: 1,
+    })
+    .send();
+
+  newListing.geometry = response.body.features[0].geometry;
+
   // Check if new image is uploaded
   // If yes, then change the link to the new image.
   if (typeof req.file !== "undefined") {
     let url = req.file.path;
     let filename = req.file.filename;
     newListing.image = { url, filename };
-    await newListing.save();
   }
+
+  let savedListing = await newListing.save();
+  console.log(savedListing);
 
   req.flash("update", "Listing Updated!");
   res.redirect(`/listings/${id}`);
