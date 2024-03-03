@@ -72,6 +72,7 @@ app.use((req, res, next) => {
   res.locals.update = req.flash("update");
   res.locals.deleted = req.flash("deleted");
   res.locals.currUser = req.user;
+  res.locals.appName = "GlideAway";
   next();
 });
 
@@ -79,7 +80,8 @@ app.use((req, res, next) => {
 
 // 1. Root Route
 app.get("/", (req, res) => {
-  res.send("Hi, I am root");
+  // res.send("Hi, I am root");
+  res.redirect("/listings");
 });
 
 // 2. Listing

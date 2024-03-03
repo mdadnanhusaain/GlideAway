@@ -1,11 +1,191 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-<title>Wanderlust</title>
+<style>
+  .filter-bar {
+    display: flex;
+    justify-content: space-between;
+  }
 
-<div class="heading">
+  #filters {
+    display: flex;
+    width: 80%;
+    overflow: hidden;
+  }
+
+  .filter {
+    text-align: center;
+    margin: 0.2rem 1rem;
+    opacity: 0.5;
+  }
+
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+    transition: 0.2s linear;
+  }
+
+  .filter:hover > .underline {
+    opacity: 0.5;
+    transition: 0.2s linear;
+  }
+
+  .filter span {
+    font-size: 0.8rem;
+  }
+
+  .underline {
+    width: 95%;
+    margin: 0.5rem auto;
+    height: 0.1rem;
+    background-color: black;
+    opacity: 0;
+  }
+
+  .tax-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 1px solid black;
+    border-radius: 1rem;
+    min-height: 2.5rem;
+    max-height: 4.5rem;
+    overflow: hidden;
+    padding: 1rem;
+  }
+
+  .tax-toggle label {
+    text-align: center;
+  }
+
+  .tax-info {
+    display: none;
+  }
+</style>
+
+<title><%= appName %></title>
+
+<!-- <div class="heading">
   <h3>All Listings</h3>
   <hr class="hr" />
+</div> -->
+
+<div class="filter-bar">
+  <div id="filters">
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-fire"></i>
+      </div>
+      <span>Trending</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-bed"></i>
+      </div>
+      <span>Rooms</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-mountain-city"></i>
+      </div>
+      <span>Iconic Cities</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-mountain"></i>
+      </div>
+      <span>Mountains</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-brands fa-fort-awesome"></i>
+      </div>
+      <span>Castles</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-person-swimming"></i>
+      </div>
+      <span>Amazing Pools</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-campground"></i>
+      </div>
+      <span>Camping</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-cow"></i>
+      </div>
+      <span>Farms</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-regular fa-snowflake"></i>
+      </div>
+      <span>Arctic</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-bowling-ball"></i>
+      </div>
+      <span>Indoors</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-person-skiing"></i>
+      </div>
+      <span>Skiing</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-palette"></i>
+      </div>
+      <span>Creative Places</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-landmark"></i>
+      </div>
+      <span>Monuments</span>
+      <div class="underline"></div>
+    </div>
+    <div class="filter">
+      <div>
+        <i class="fa-solid fa-fish-fins"></i>
+      </div>
+      <span>Fishing</span>
+      <div class="underline"></div>
+    </div>
+  </div>
+  <div class="tax-toggle">
+    <div class="form-check form-switch form-check-reverse">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+      />
+      <label class="form-check-label" for="flexSwitchCheckDefault"
+        >Display total after Taxes</label
+      >
+    </div>
+  </div>
 </div>
+
+<hr class="hr" />
 
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
   <% for(listing of listings ) { %>
@@ -24,13 +204,15 @@
         <div class="card-body listing-body m-1">
           <h5 class="card-title"><b><%=listing.title%></b></h5>
           <h6 class="card-subtitle mb-2 text-body-secondary">
-            <i
-              ><%=listing.location%><%if(listing.country && listing.location)
-              {%>,<% }%> <%=listing.country%></i
-            >
+            <i><%=listing.location%>, <%=listing.country%></i>
           </h6>
           <p class="card-text">
-            &#8377;<%=listing.price.toLocaleString("en-IN") %> / night
+            <b>
+              &#8377;<span id="text"
+                ><%=listing.price.toLocaleString("en-IN") %></span
+              > </b
+            >/ night
+            <i class="tax-info">&nbsp;&nbsp;+ 18% GST</i>
             <br />
           </p>
         </div>
@@ -39,3 +221,18 @@
   </div>
   <% } %>
 </div>
+
+<script>
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+
+    for (info of taxInfo) {
+      if (info.style.display !== "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+</script>
