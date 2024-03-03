@@ -86,7 +86,7 @@ app.use((req, res, next) => {
   res.locals.update = req.flash("update");
   res.locals.deleted = req.flash("deleted");
   res.locals.currUser = req.user;
-  res.locals.appName = "GlideAway";
+  res.locals.appName = process.env.APP_NAME;
   next();
 });
 

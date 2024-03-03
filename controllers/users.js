@@ -17,7 +17,10 @@ module.exports.signup = async (req, res) => {
       if (err) {
         return next(err);
       }
-      req.flash("success", `Hi @${username}!  Welcome to Wanderlust`);
+      req.flash(
+        "success",
+        `Hi @${username}!  Welcome to ${res.locals.appName}`
+      );
       res.redirect("/listings");
     });
   } catch (err) {
@@ -36,7 +39,7 @@ module.exports.login = async (req, res) => {
   let { username } = req.body;
   req.flash(
     "success",
-    `Welcome to Wanderlust! You are logged in as @${username}`
+    `Welcome to ${res.locals.appName}! You are logged in as @${username}`
   );
   if (res.locals.redirectUrl) res.locals.redirectUrl = res.locals.redirectUrl;
   else res.locals.redirectUrl = "/listings";
