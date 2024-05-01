@@ -99,21 +99,54 @@ body {
 }
 
 /* Filter bar */
-.filter-bar {
+
+.scroll-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  cursor: pointer;
+}
+
+.left-arrow {
+  order: -1;
+}
+
+.right-arrow {
+  order: 1;
+}
+
+.left-arrow i,
+.right-arrow i {
+  font-size: 1.2rem;
+}
+
+.filter-bar,
+.filter-container {
   display: flex;
   justify-content: space-between;
+  overflow: hidden;
 }
 
 #filters {
   display: flex;
-  width: 80%;
-  overflow: hidden;
+  scroll-behavior: smooth;
+  margin-right: 1rem;
+}
+
+#filters::-webkit-scrollbar {
+  display: none;
 }
 
 .filter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
   margin: 0.2rem 1rem;
   opacity: 0.5;
+  text-decoration: none;
+  color: #000;
 }
 
 .filter:hover {
@@ -131,6 +164,11 @@ body {
   font-size: 0.8rem;
 }
 
+.overflow-auto {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .underline {
   width: 95%;
   margin: 0.5rem auto;
@@ -139,24 +177,39 @@ body {
   opacity: 0;
 }
 
+.line {
+  width: 1px;
+  color: black;
+  background-color: #000;
+  opacity: 0.25;
+  padding: 0;
+}
+
 .tax-toggle {
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  border: 1px solid black;
+  justify-content: end;
   border-radius: 1rem;
   min-height: 2.5rem;
   max-height: 4.5rem;
-  overflow: hidden;
-  padding: 1rem;
+}
+
+.form-switch {
+  padding: 0.5rem;
 }
 
 .tax-toggle label {
   text-align: center;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 
 .tax-info {
   display: none;
+}
+
+.heading {
+  margin-top: 2.5rem;
+  width: max-content;
 }
 
 /* Cards */
@@ -169,7 +222,6 @@ body {
   margin-bottom: 1.5rem;
 }
 .card-img {
-  /* height: 20rem; */
   border-radius: 1rem;
   overflow: hidden;
 }

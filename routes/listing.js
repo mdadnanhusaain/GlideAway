@@ -52,4 +52,6 @@ router.get(
   wrapAsync(listingController.renderEditForm)
 );
 
+router.get("/filter/:id", wrapAsync(listingController.filterListing));
+
 module.exports = router;
