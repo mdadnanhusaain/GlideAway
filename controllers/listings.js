@@ -3,6 +3,23 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
+let headlines = {
+  all: "All Listings",
+  rooms: "Rooms",
+  iconiccities: "Iconic Cities",
+  mountains: "Mountains",
+  castles: "Castles",
+  amazingpools: "Amazing Pools",
+  camping: "Camping",
+  farms: "Farms",
+  arctic: "Arctic",
+  indoors: "Indoors",
+  skiing: "Skiing",
+  creativeplaces: "Creative Places",
+  monuments: "Monuments",
+  fishing: "Fishing",
+};
+
 // 1. Index Route
 module.exports.index = async (req, res) => {
   let listings = await Listing.find({});
@@ -87,7 +104,6 @@ module.exports.updateListing = async (req, res) => {
       limit: 1,
     })
     .send();
-
   newListing.geometry = response.body.features[0].geometry;
 
   // Check if new image is uploaded
@@ -98,6 +114,9 @@ module.exports.updateListing = async (req, res) => {
     newListing.image = { url, filename };
   }
 
+  newListing.filter = listing.filter;
+  newListing.filter.push("all");
+
   let savedListing = await newListing.save();
   console.log(savedListing);
 
@@ -105,7 +124,21 @@ module.exports.updateListing = async (req, res) => {
   res.redirect(`/listings/${id}`);
 };
 
-// 7. Delete Route
+// 7. Filter Route
+module.exports.filterListing = async (req, res) => {
+  let { id } = req.params;
+  let listings = await Listing.find({});
+
+  listings = listings.filter((listing) => {
+    return listing.filter.includes(id);
+  });
+
+  console.log(headlines[id]);
+
+  res.render("listings/filter.ejs", { filter: headlines[id], listings });
+};
+
+// 8. Delete Route
 module.exports.destroyListing = async (req, res) => {
   let { id } = req.params;
   let deletedListing = await Listing.findByIdAndDelete(id);

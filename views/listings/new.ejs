@@ -90,6 +90,37 @@
         />
         <div class="invalid-feedback">Location should be valid</div>
       </div>
+      <div class="mb-3">
+        <label class="form-label" for="filter">Filter</label>
+        <select
+          name="listing[filter][]"
+          id="filter"
+          class="form-select"
+          multiple
+          required
+        >
+          <option value="rooms">Rooms</option>
+          <option value="iconiccities">Iconic Cities</option>
+          <option value="mountains">Mountains</option>
+          <option value="castles">Castles</option>
+          <option value="amazingpools">Amazing Pools</option>
+          <option value="camping">Camping</option>
+          <option value="farms">Farms</option>
+          <option value="arctic">Arctic</option>
+          <option value="indoors">Indoors</option>
+          <option value="skiing">Skiing</option>
+          <option value="creativeplaces">Creative Places</option>
+          <option value="monuments">Monuments</option>
+          <option value="fishing">Fishing</option>
+        </select>
+        <figcaption class="figure-caption">
+          Hold CTRL and click on the options to select multiple fields.
+        </figcaption>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+          Please select atleast one Filter for your listing
+        </div>
+      </div>
       <br />
       <button class="btn btn-primary add-btn">Add</button>
       <br />

@@ -1,4 +1,4 @@
-let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+let taxSwitch = document.getElementById("taxToggle");
 taxSwitch.addEventListener("click", () => {
   let taxInfo = document.getElementsByClassName("tax-info");
 

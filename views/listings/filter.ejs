@@ -4,6 +4,17 @@
 
 <%- include("../includes/filterbar.ejs") %>
 
+<div class="heading">
+  <% if(filter === "All Listings") {%>
+  <h3>All Listings</h3>
+  <% } else { %>
+  <h3>Places with <%= filter %></h3>
+  <% } if(listings.length !== 0) { %>
+  <hr class="hr" />
+  <% } %>
+</div>
+
+<% if(listings.length !== 0) { %>
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
   <% for(listing of listings ) { %>
   <div class="listing p-4" id="<%= listing._id %>">
@@ -38,5 +49,9 @@
   </div>
   <% } %>
 </div>
+<% } else {%>
+<br /><br />
+<h1 class="text-center">No Listing with the given filter</h1>
+<% } %>
 
 <script src="/js/taxSwitch.js"></script>
