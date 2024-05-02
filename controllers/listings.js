@@ -46,9 +46,7 @@ module.exports.showListing = async (req, res) => {
     req.flash("error", "Listing you requested for does not exist!");
     return res.redirect("/listings");
   }
-  console.log(
-    `Listing Requested :- ${listing.title} \nObject ID:- ${listing._id}\n`
-  );
+
   res.render("listings/show.ejs", { listing });
 };
 
@@ -71,7 +69,7 @@ module.exports.createListing = async (req, res, next) => {
   newListing.geometry = response.body.features[0].geometry;
 
   let savedListing = await newListing.save();
-  console.log(savedListing);
+  console.log("New Listing Created :- ", savedListing);
 
   req.flash("success", "New Listing Created!");
   res.redirect(`/listings/${newListing._id}`);
@@ -118,7 +116,7 @@ module.exports.updateListing = async (req, res) => {
   newListing.filter.push("all");
 
   let savedListing = await newListing.save();
-  console.log(savedListing);
+  console.log("Updated Listing :- ", savedListing);
 
   req.flash("update", "Listing Updated!");
   res.redirect(`/listings/${id}`);
@@ -133,8 +131,6 @@ module.exports.filterListing = async (req, res) => {
     return listing.filter.includes(id);
   });
 
-  console.log(headlines[id]);
-
   res.render("listings/filter.ejs", { filter: headlines[id], listings });
 };
 
@@ -144,7 +140,6 @@ module.exports.searchListing = async (req, res) => {
   search = search.split(" ");
 
   let searchArr = search.filter((word) => word.length >= 3);
-  console.log(searchArr);
 
   let regex = searchArr.map((word) => new RegExp(word, "i"));
   let listings = await Listing.find({
