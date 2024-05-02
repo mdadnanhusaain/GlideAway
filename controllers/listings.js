@@ -1,7 +1,7 @@
-const Listing = require("../models/listing.js");
-const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
-const mapToken = process.env.MAP_TOKEN;
-const geocodingClient = mbxGeocoding({ accessToken: mapToken });
+let Listing = require("../models/listing.js");
+let mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+let mapToken = process.env.MAP_TOKEN;
+let geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 let headlines = {
   all: "All Listings",
@@ -34,7 +34,7 @@ module.exports.renderNewForm = (req, res) => {
 // 3. Show Route
 module.exports.showListing = async (req, res) => {
   let { id } = req.params;
-  const listing = await Listing.findById(id)
+  let listing = await Listing.findById(id)
     .populate({
       path: "reviews",
       populate: {
@@ -138,7 +138,30 @@ module.exports.filterListing = async (req, res) => {
   res.render("listings/filter.ejs", { filter: headlines[id], listings });
 };
 
-// 8. Delete Route
+// 8. Search Route
+module.exports.searchListing = async (req, res) => {
+  let { search } = req.query;
+  search = search.split(" ");
+
+  let searchArr = search.filter((word) => word.length >= 3);
+  console.log(searchArr);
+
+  let regex = searchArr.map((word) => new RegExp(word, "i"));
+  let listings = await Listing.find({
+    $or: [
+      { title: { $in: regex } },
+      { location: { $in: regex } },
+      { country: { $in: regex } },
+      { filter: { $in: regex } },
+    ],
+  }).exec();
+
+  if (searchArr.length == 0) searchArr = search;
+
+  res.render("listings/search.ejs", { search: searchArr, listings });
+};
+
+// 9. Delete Route
 module.exports.destroyListing = async (req, res) => {
   let { id } = req.params;
   let deletedListing = await Listing.findByIdAndDelete(id);
