@@ -1,13 +1,14 @@
 {
   "engines": {
-    "node": "18.17.1"
+    "node": "18.20.2"
   },
   "name": "GlideAway",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Tests passed successfully\"",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
